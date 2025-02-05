@@ -13,17 +13,22 @@ public class Character : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 aimInput;
 
+    private float xAngle;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
     void Update()
     {
         Vector3 newVelocity = new Vector3(moveInput.x * moveVel, rb.velocity.y, moveInput.y * moveVel);
-        rb.velocity = newVelocity;
+        rb.velocity = transform.rotation * newVelocity;
 
         transform.Rotate(0, aimInput.x * aimSens.x * Time.deltaTime, 0);
-        transform.GetChild(0).Rotate(-aimInput.y * aimSens.y * Time.deltaTime, 0, 0);
+
+        xAngle = Mathf.Clamp(xAngle - aimInput.y * aimSens.y * Time.deltaTime, -90, 90);
+        transform.GetChild(0).localEulerAngles = new Vector3(xAngle, 0, 0);
     }
 
     private void OnMove(InputValue value)
@@ -34,5 +39,17 @@ public class Character : MonoBehaviour
     private void OnAim(InputValue value)
     {
         aimInput = value.Get<Vector2>();
+    }
+
+    private void OnShoot() 
+    {
+        if (Physics.Raycast(transform.GetChild(0).position, transform.GetChild(0).forward)) 
+        {
+            print("PIUM PIUM");
+        }
+        else
+        {
+            print("TE HAS SALIDO");
+        }
     }
 }
