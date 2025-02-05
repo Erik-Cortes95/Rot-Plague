@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,7 @@ public class Character : MonoBehaviour
 {
     [SerializeField] private float moveVel;
     [SerializeField] private Vector2 aimSens;
+    [SerializeField] private ParticleSystem bloodEffect;
 
     private Rigidbody rb;
 
@@ -43,9 +45,11 @@ public class Character : MonoBehaviour
 
     private void OnShoot() 
     {
-        if (Physics.Raycast(transform.GetChild(0).position, transform.GetChild(0).forward)) 
+        RaycastHit hit;
+        if (Physics.Raycast(transform.GetChild(0).position, transform.GetChild(0).forward, out hit)) 
         {
-            print("PIUM PIUM");
+            Destroy(hit.transform.gameObject, 0.5f);
+            Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
         }
         else
         {
