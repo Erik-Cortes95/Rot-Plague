@@ -7,7 +7,7 @@ public class ZombieAI : MonoBehaviour
     public float detectionRange = 10f;  
     public float attackRange = 2f;      
     private NavMeshAgent agent;         
-    private Animator animator;          
+    private Animator animator;   
 
     void Start()
     {
@@ -22,12 +22,12 @@ public class ZombieAI : MonoBehaviour
         if (distance <= detectionRange)
         {
             agent.SetDestination(player.position);
-            animator.SetBool("IsWalking", true);
+            animator.SetBool("Walking", true);
 
             if (distance <= attackRange)
             {
                 agent.isStopped = true;
-                animator.SetBool("IsWalking", false);
+                animator.SetBool("Walking", false);
                 animator.SetTrigger("Attack");
             }
             else
@@ -37,7 +37,7 @@ public class ZombieAI : MonoBehaviour
         }
         else
         {
-            animator.SetBool("IsWalking", false);
+            animator.SetBool("Walking", false);
         }
     }
 }
