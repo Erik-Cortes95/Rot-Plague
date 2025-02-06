@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] private float moveVel;
+    [SerializeField] private float moveVel = 5f;
+    [SerializeField] private float jumpHeight = 20f;
     [SerializeField] private Vector2 aimSens;
     [SerializeField] private ParticleSystem bloodEffect;
 
@@ -16,6 +17,7 @@ public class Character : MonoBehaviour
     private Vector2 aimInput;
 
     private float xAngle;
+    private bool canJump = true;
 
     private void Awake()
     {
@@ -43,17 +45,32 @@ public class Character : MonoBehaviour
         aimInput = value.Get<Vector2>();
     }
 
+    private void OnJump()
+    {
+        if (canJump)
+        {
+            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            canJump = false;
+            Invoke(nameof(ResetJump), 5f);
+        }
+    }
+
+    private void ResetJump()
+    {
+        canJump = true;
+    }
+
     private void OnShoot() 
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.GetChild(0).position, transform.GetChild(0).forward, out hit)) 
+        if (Physics.Raycast(transform.GetChild(0).position, transform.GetChild(0).forward, out hit) && !hit.collider.CompareTag("Escenario")) 
         {
             Destroy(hit.transform.gameObject, 0.5f);
             Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
         }
         else
         {
-            print("TE HAS SALIDO");
+        
         }
     }
 }
