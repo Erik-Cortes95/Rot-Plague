@@ -496,7 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9007d875a7bed4c4b9b7052b4b5b64a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.06
+      value: 0.12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9007d875a7bed4c4b9b7052b4b5b64a0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -577,8 +577,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1328648502}
-  detectionRange: 10
-  attackRange: 2
+  detectionRange: 15
+  attackRange: 1.6
 --- !u!195 &1180297041
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -656,6 +656,7 @@ GameObject:
   - component: {fileID: 1328648501}
   - component: {fileID: 1328648500}
   - component: {fileID: 1328648499}
+  - component: {fileID: 1328648503}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Player
@@ -742,10 +743,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328648498}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.533, y: 0.373, z: 6.32}
-  m_LocalScale: {x: 0.39896, y: 0.39896, z: 0.39896}
+  m_LocalPosition: {x: -7.533, y: 1.02, z: 6.32}
+  m_LocalScale: {x: 0.4448005, y: 1.8441337, z: 0.4448005}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1328648503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1328648498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a31ae1d70d35143b655c258a7c4b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  damagePerHit: 5
+  damageInterval: 1
