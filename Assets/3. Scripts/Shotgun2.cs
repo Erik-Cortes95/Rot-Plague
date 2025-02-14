@@ -1,21 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Shotgun : MonoBehaviour
+public class Shotgun2 : MonoBehaviour
 {
     [SerializeField] private float damage = 40f;
-    [SerializeField] private float fireRate = 1f; // Cadencia baja
-    [SerializeField] private int pelletCount = 6; // Número de perdigones
-    [SerializeField] private float spreadAngle = 10f; // Dispersión de la escopeta
+    [SerializeField] private float fireRate = 1f;
+    [SerializeField] private int pelletCount = 6;
+    [SerializeField] private float spreadAngle = 10f;
     [SerializeField] private ParticleSystem bloodEffect;
 
     private bool canShoot = true;
-
-    private void Start()
-    {
-        canShoot = true;
-    }
 
     public void OnShoot()
     {
@@ -25,7 +20,6 @@ public class Shotgun : MonoBehaviour
         {
             Shoot();
             canShoot = false;
-
             StopAllCoroutines();
             StartCoroutine(ResetShoot());
         }

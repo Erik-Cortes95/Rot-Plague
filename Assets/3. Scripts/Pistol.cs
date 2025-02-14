@@ -27,7 +27,7 @@ public class Pistol : MonoBehaviour
         {
             Destroy(hit.transform.gameObject, 0.5f);
             Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            print("Disparo de pistola");
+            Debug.Log("Disparo de pistola");
         }
     }
 
