@@ -26,9 +26,11 @@ public class Character : MonoBehaviour
     }
     void Update()
     {
+        // Moverse
         Vector3 newVelocity = new Vector3(moveInput.x * moveVel, rb.velocity.y, moveInput.y * moveVel);
         rb.velocity = transform.rotation * newVelocity;
 
+        //Apuntar
         transform.Rotate(0, aimInput.x * aimSens.x * Time.deltaTime, 0);
 
         xAngle = Mathf.Clamp(xAngle - aimInput.y * aimSens.y * Time.deltaTime, -90, 90);
@@ -60,7 +62,7 @@ public class Character : MonoBehaviour
         canJump = true;
     }
 
-    private void OnShoot() 
+    /* private void OnShoot() 
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.GetChild(0).position, transform.GetChild(0).forward, out hit) && !hit.collider.CompareTag("Escenario")) 
@@ -72,5 +74,5 @@ public class Character : MonoBehaviour
         {
         
         }
-    }
+    } */
 }
