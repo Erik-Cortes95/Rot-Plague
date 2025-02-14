@@ -62,7 +62,7 @@ public class Character : MonoBehaviour
         canJump = true;
     }
 
-    /* private void OnShoot() 
+   /*  private void OnShoot() 
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.GetChild(0).position, transform.GetChild(0).forward, out hit) && !hit.collider.CompareTag("Escenario")) 

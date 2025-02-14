@@ -35,11 +35,11 @@ public class Shotgun : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(spread) * transform.rotation;
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, rotation * Vector3.forward, out hit) && hit.collider.CompareTag("Disparable"))
+            if (Physics.Raycast(transform.parent.position, transform.parent.forward, out hit) && !hit.collider.CompareTag("Escenario"))
             {
                 Destroy(hit.transform.gameObject, 0.5f);
                 Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                print("TOMA ZORRA, escopetazo en la puta boca");
+                print("escopetazo en la boca");
             }
         }
     }

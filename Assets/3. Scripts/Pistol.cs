@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class Pistol : MonoBehaviour
 {
     [SerializeField] private float damage = 25f;
-    [SerializeField] private float fireRate = 0.2f; // Tiempo entre disparos (alta cadencia)
+    [SerializeField] private float fireRate = 0.2f;
     [SerializeField] private ParticleSystem bloodEffect;
 
     private bool canShoot = true;
@@ -23,7 +23,7 @@ public class Pistol : MonoBehaviour
     private void Shoot()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit) && hit.collider.CompareTag("Disparable"))
+        if (Physics.Raycast(transform.parent.position, transform.parent.forward, out hit) && !hit.collider.CompareTag("Escenario"))
         {
             Destroy(hit.transform.gameObject, 0.5f);
             Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));

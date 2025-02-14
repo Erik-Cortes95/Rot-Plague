@@ -5,13 +5,13 @@ using UnityEngine.InputSystem;
 
 public class WeaponSwitcher : MonoBehaviour
 {
-    [SerializeField] private Transform weaponHolder; // Padre de todas las armas
+    [SerializeField] private Transform weaponHolder;
     private int currentWeaponIndex = 0;
     private Transform[] weapons;
 
     private void Start()
     {
-        // Obtener todas las armas como hijos del weaponHolder
+        
         int weaponCount = weaponHolder.childCount;
         weapons = new Transform[weaponCount];
         for (int i = 0; i < weaponCount; i++)
