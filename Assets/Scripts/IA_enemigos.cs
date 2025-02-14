@@ -3,6 +3,10 @@ using UnityEngine.AI;
 
 public class ZombieAI : MonoBehaviour
 {
+    [SerializeField]
+    private PlayerHealth
+    playerHealth;
+
     public Transform player;               // Referencia al jugador
     public float detectionRange = 10f;     // Rango de detección
     public float attackRange = 2f;         // Rango de ataque
@@ -42,13 +46,12 @@ public class ZombieAI : MonoBehaviour
             animator.SetBool("Walking", false);
         }
     }
-
     private void AttackPlayer()
     {
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
-            playerHealth.TakeDamage(5f);
+            playerHealth.TakeDamage(playerHealth.damagePerHit);
         }
     }
 }
