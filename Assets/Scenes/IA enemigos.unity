@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 146821704}
   - component: {fileID: 146821703}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Suelo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -629,7 +629,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 5.32
-  m_NavMeshData: {fileID: 23800000, guid: 14b48bd60516fa44a856787558d6eaf1, type: 2}
+  m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
 --- !u!4 &884597785
 Transform:
