@@ -4,8 +4,7 @@ using UnityEngine.AI;
 public class ZombieAI : MonoBehaviour
 {
     [SerializeField]
-    private PlayerHealth
-    playerHealth;
+    private PlayerHealth playerHealth;
 
     public Transform player;               // Referencia al jugador
     public float detectionRange = 10f;     // Rango de detección
@@ -15,12 +14,12 @@ public class ZombieAI : MonoBehaviour
     private AudioSource audioSource;       // Componente AudioSource para reproducir sonidos
     public AudioClip walkSound;            // Sonido cuando el zombie camina
     public AudioClip attackSound;          // Sonido cuando el zombie ataca
-    private bool isAttacking = false;      // Indica si el zombie está atacando
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();  
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -32,11 +31,10 @@ public class ZombieAI : MonoBehaviour
             agent.SetDestination(player.position);
             animator.SetBool("Walking", true);
 
-            // Reproducir sonido de caminar solo si no se está reproduciendo ya
             if (!audioSource.isPlaying && walkSound != null)
             {
                 audioSource.clip = walkSound;
-                audioSource.loop = true;  // El sonido se repite mientras el zombie camina
+                audioSource.loop = true;
                 audioSource.Play();
             }
 
@@ -46,16 +44,15 @@ public class ZombieAI : MonoBehaviour
                 animator.SetBool("Walking", false);
                 animator.SetTrigger("Attack");
 
-                // Detener sonido de caminar cuando ataca y reproducir el sonido de ataque
                 if (audioSource.isPlaying && walkSound != null)
                 {
-                    audioSource.Stop(); // Detiene el sonido de caminar
+                    audioSource.Stop();
                 }
 
                 if (attackSound != null)
                 {
                     audioSource.clip = attackSound;
-                    audioSource.Play(); // Reproduce el sonido de ataque
+                    audioSource.Play();
                 }
 
                 AttackPlayer();
@@ -69,7 +66,6 @@ public class ZombieAI : MonoBehaviour
         {
             animator.SetBool("Walking", false);
 
-            // Detener sonido de caminar si el zombie no está cerca del jugador
             if (audioSource.isPlaying && walkSound != null)
             {
                 audioSource.Stop();
@@ -86,25 +82,22 @@ public class ZombieAI : MonoBehaviour
         }
     }
 
-    // Método para reproducir el sonido de ataque en bucle
     private void PlayAttackSound()
     {
         if (audioSource.isPlaying)
         {
-            audioSource.Stop();  // Detener cualquier otro sonido antes de reproducir el de ataque
+            audioSource.Stop();
         }
         audioSource.clip = attackSound;
-        audioSource.loop = true;  // El sonido se repite continuamente mientras ataca
+        audioSource.loop = true;
         audioSource.Play();
     }
 
-    // Método para detener el sonido de ataque
     private void StopAttackSound()
     {
         if (audioSource.isPlaying && attackSound != null)
         {
-            audioSource.Stop();  // Detiene el sonido de ataque cuando el zombie ya no ataca
+            audioSource.Stop();
         }
-        isAttacking = false;  // Resetea el estado de ataque
     }
 }
