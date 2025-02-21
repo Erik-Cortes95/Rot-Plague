@@ -26,4 +26,12 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("¡Has ha muerto!");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    private void OnTriggerEnter(Collider coll)
+    {
+        if (coll.CompareTag("arma"))
+        {
+            print("Daño");
+        }
+    }
 }

@@ -3,101 +3,73 @@ using UnityEngine.AI;
 
 public class ZombieAI : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerHealth playerHealth;
+    public int rutina;
+    public float cronometro;
+    public Animator ani;
+    public float grado;
+    private Quaternion angulo;
 
-    public Transform player;               // Referencia al jugador
-    public float detectionRange = 10f;     // Rango de detección
-    public float attackRange = 2f;         // Rango de ataque
-    private NavMeshAgent agent;            // Referencia al agente de NavMesh
-    private Animator animator;             // Referencia al Animator del zombie
-    private AudioSource audioSource;       // Componente AudioSource para reproducir sonidos
-    public AudioClip walkSound;            // Sonido cuando el zombie camina
-    public AudioClip attackSound;          // Sonido cuando el zombie ataca
+    public GameObject target;
+    public bool atacando;
+
+    private NavMeshAgent agent;
 
     void Start()
     {
+        ani = GetComponent<Animator>();
+        target = GameObject.Find("Link");
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
+    public void Comportamiento_Enemigo()
     {
-        float distance = Vector3.Distance(transform.position, player.position);
-
-        if (distance <= detectionRange)
+        if (Vector3.Distance(transform.position, target.transform.position) > 5)
         {
-            agent.SetDestination(player.position);
-            animator.SetBool("Walking", true);
-
-            if (!audioSource.isPlaying && walkSound != null)
+            cronometro += 1 * Time.deltaTime;
+            if (cronometro >= 4)
             {
-                audioSource.clip = walkSound;
-                audioSource.loop = true;
-                audioSource.Play();
+                rutina = Random.Range(0, 2);
+                cronometro = 0;
             }
+        }
 
-            if (distance <= attackRange)
-            {
-                agent.isStopped = true;
-                animator.SetBool("Walking", false);
-                animator.SetTrigger("Attack");
+        switch (rutina)
+        {
+            case 0:
+                ani.SetBool("Walk", false);
+                break;
 
-                if (audioSource.isPlaying && walkSound != null)
-                {
-                    audioSource.Stop();
-                }
+            case 1:
+                grado = Random.Range(0, 360);
+                angulo = Quaternion.Euler(0, grado, 0);
+                rutina++;
+                break;
 
-                if (attackSound != null)
-                {
-                    audioSource.clip = attackSound;
-                    audioSource.Play();
-                }
+            case 2:
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, angulo, 0.5f);
+                transform.Translate(Vector3.forward * 1 * Time.deltaTime);
+                ani.SetBool("Walk", true);
+                break;
+        }
 
-                AttackPlayer();
-            }
-            else
-            {
-                agent.isStopped = false;
-            }
+        if (Vector3.Distance(transform.position, target.transform.position) <= 5)
+        {
+            agent.SetDestination(target.transform.position);
+            ani.SetBool("Walk", true);
+            ani.SetBool("Run", true);
+            transform.Translate(Vector3.forward * 2 * Time.deltaTime);
         }
         else
         {
-            animator.SetBool("Walking", false);
-
-            if (audioSource.isPlaying && walkSound != null)
-            {
-                audioSource.Stop();
-            }
+            ani.SetBool("Walk", false);
+            ani.SetBool("Attack", true);
+            atacando = true;
         }
     }
 
-    private void AttackPlayer()
+    public void FinalAnimacion()
     {
-        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
-        {
-            playerHealth.TakeDamage(playerHealth.damagePerHit);
-        }
-    }
-
-    private void PlayAttackSound()
-    {
-        if (audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
-        audioSource.clip = attackSound;
-        audioSource.loop = true;
-        audioSource.Play();
-    }
-
-    private void StopAttackSound()
-    {
-        if (audioSource.isPlaying && attackSound != null)
-        {
-            audioSource.Stop();
-        }
+        ani.SetBool("Attack", false);
+        atacando = false;
     }
 }
