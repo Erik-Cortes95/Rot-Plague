@@ -744,10 +744,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd9bd35c5588dd43b4600e2b352762d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
-  player: {fileID: 1328648502}
-  detectionRange: 15
-  attackRange: 1.6
+  rutina: 0
+  cronometro: 0
+  ani: {fileID: 0}
+  grado: 0
+  target: {fileID: 1328648498}
+  atacando: 0
+  rangoSeguimiento: 10
 --- !u!195 &1180297041
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -953,10 +956,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd9bd35c5588dd43b4600e2b352762d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
-  player: {fileID: 1328648502}
-  detectionRange: 15
-  attackRange: 1.2
+  rutina: 0
+  cronometro: 0
+  ani: {fileID: 0}
+  grado: 0
+  target: {fileID: 0}
+  atacando: 0
+  rangoSeguimiento: 10
 --- !u!195 &1585291908
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1041,10 +1047,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd9bd35c5588dd43b4600e2b352762d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
-  player: {fileID: 1328648502}
-  detectionRange: 15
-  attackRange: 1.6
+  rutina: 0
+  cronometro: 0
+  ani: {fileID: 0}
+  grado: 0
+  target: {fileID: 0}
+  atacando: 0
+  rangoSeguimiento: 10
 --- !u!136 &1957046650
 CapsuleCollider:
   m_ObjectHideFlags: 0
