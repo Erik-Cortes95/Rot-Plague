@@ -34,6 +34,8 @@ public class IA_enemigos : MonoBehaviour
     void Update()
     {
       //  Comportamiento_Enemigo();
+
+
     }
 
     public void Comportamiento_Enemigo()
