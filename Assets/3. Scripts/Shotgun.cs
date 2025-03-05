@@ -9,8 +9,16 @@ public class Shotgun : MonoBehaviour
     [SerializeField] private int pelletCount = 6; // Número de perdigones
     [SerializeField] private float spreadAngle = 10f; // Dispersión de la escopeta
     [SerializeField] private ParticleSystem bloodEffect;
+    [SerializeField] private ParticleSystem impactEffect;
+
+    private AudioSource shootSound;
 
     private bool canShoot = true;
+
+    private void Awake()
+    {
+        shootSound = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -34,6 +42,7 @@ public class Shotgun : MonoBehaviour
     private void Shoot()
     {
         Debug.Log("Disparo realizado"); // Ver si Shoot() se llama cada vez
+        shootSound.Play();
 
         for (int i = 0; i < pelletCount; i++)
         {
@@ -50,6 +59,7 @@ public class Shotgun : MonoBehaviour
             {
                 Destroy(hit.transform.gameObject, 0.5f);
                 Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 Debug.Log("Escopetazo en la boca"); // Ver si impacta el disparo
             }
         }
