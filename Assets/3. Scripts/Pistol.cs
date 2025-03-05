@@ -10,6 +10,7 @@ public class Pistol : MonoBehaviour
     [SerializeField] private ParticleSystem impactEffect;
     private AudioSource shootSound;
     [SerializeField] private ParticleSystem disparoFX;
+    [SerializeField] private Transform disparoPoint; // Punto donde aparece el efecto de disparo
 
     private bool canShoot = true;
 
@@ -30,7 +31,10 @@ public class Pistol : MonoBehaviour
     private void Shoot()
     {
         shootSound.Play();
-        disparoFX.Play();
+        if (disparoFX != null && disparoPoint != null)
+        {
+            Instantiate(disparoFX, disparoPoint.position, disparoPoint.rotation); // Genera el efecto en la boca del cañón
+        }
 
         RaycastHit hit;
         if (Physics.Raycast(transform.parent.position, transform.parent.forward, out hit) && !hit.collider.CompareTag("Escenario"))
@@ -38,7 +42,7 @@ public class Pistol : MonoBehaviour
             Destroy(hit.transform.gameObject, 0.5f);
             Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-           
+
             Debug.Log("Disparo de pistola");
         }
     }

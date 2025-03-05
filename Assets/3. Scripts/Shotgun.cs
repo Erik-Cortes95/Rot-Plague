@@ -10,6 +10,8 @@ public class Shotgun : MonoBehaviour
     [SerializeField] private float spreadAngle = 10f; // Dispersión de la escopeta
     [SerializeField] private ParticleSystem bloodEffect;
     [SerializeField] private ParticleSystem impactEffect;
+    [SerializeField] private ParticleSystem disparoFX;
+    [SerializeField] private Transform disparoPoint;
 
     private AudioSource shootSound;
 
@@ -43,6 +45,10 @@ public class Shotgun : MonoBehaviour
     {
         Debug.Log("Disparo realizado"); // Ver si Shoot() se llama cada vez
         shootSound.Play();
+        if (disparoFX != null && disparoPoint != null)
+        {
+            Instantiate(disparoFX, disparoPoint.position, disparoPoint.rotation); // Genera el efecto en la boca del cañón
+        }
 
         for (int i = 0; i < pelletCount; i++)
         {
