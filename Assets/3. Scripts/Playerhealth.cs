@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public float health = 100f;  // Salud inicial del jugador
-    public float damagePerHit = 5f;  // Daño que el jugador recibe por cada golpe
-    public float damageInterval = 1f;  // Intervalo de tiempo entre cada golpe
+    public GameObject gameOverMenu;  // Referencia al Canvas del menú de Game Over
 
     public void TakeDamage(float damage)
     {
@@ -18,20 +17,22 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            Die(); 
+            Die();
         }
-    }
-    private void Die()
-    {
-        Debug.Log("¡Has ha muerto!");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void OnTriggerEnter(Collider coll)
+    private void Die()
     {
-        if (coll.CompareTag("arma"))
-        {
-            print("Daño");
-        }
+        Debug.Log("¡Has muerto!");
+
+        // Pausar el tiempo (detener el juego)
+        Time.timeScale = 0f;
+
+        // Cargar la escena de Game Over
+        SceneManager.LoadScene("GameOver");
+
+        // Hacer visible el cursor y permitir que interactúe con los botones
+        Cursor.visible = true;  // Asegura que el cursor sea visible
+        Cursor.lockState = CursorLockMode.None;  // Desbloquea el cursor (no estará bloqueado al centro)
     }
 }
