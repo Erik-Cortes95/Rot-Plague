@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     public float health = 100f;  // Salud inicial del jugador
     public GameObject gameOverMenu;  // Referencia al Canvas del menú de Game Over
+    [SerializeField] private TextMeshProUGUI vidaRestante;
 
     public void TakeDamage(float damage)
     {
@@ -14,6 +17,7 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("¡Te han hecho " + damage + " de daño!");
         Debug.Log("Salud restante: " + health);
+        vidaRestante.text = health.ToString();
 
         if (health <= 0)
         {
