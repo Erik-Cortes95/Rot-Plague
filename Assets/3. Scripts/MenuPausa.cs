@@ -54,7 +54,7 @@ public class MenuPausa : MonoBehaviour
 
         for (int i = 0; i < sonidos.Length; i++)
         {
-            sonidos[i].Play();
+            sonidos[i].UnPause();
         }
     }
     public void MainMenu(string NombreMenu)
