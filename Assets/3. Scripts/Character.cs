@@ -53,7 +53,7 @@ public class Character : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
             canJump = false;
-            Invoke(nameof(ResetJump), 5f);
+            Invoke(nameof(ResetJump), 2f);
         }
     }
 
