@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class Character : MonoBehaviour
     [SerializeField] private float jumpHeight = 20f;
     [SerializeField] private Vector2 aimSens;
     [SerializeField] private ParticleSystem bloodEffect;
+    [SerializeField] private TextMeshProUGUI limites;
 
     private Rigidbody rb;
 
@@ -23,6 +26,22 @@ public class Character : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("InvisibleWall")) 
+        {
+            limites.text ="Cuando alguien quiere bajar de un edificio, normalmente lo hace por las escaleras";
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("InvisibleWall"))
+        {
+            limites.text = "";
+        }
     }
     void Update()
     {
@@ -61,18 +80,4 @@ public class Character : MonoBehaviour
     {
         canJump = true;
     }
-
-   /*  private void OnShoot() 
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.GetChild(0).position, transform.GetChild(0).forward, out hit) && !hit.collider.CompareTag("Escenario")) 
-        {
-            Destroy(hit.transform.gameObject, 0.5f);
-            Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
-        }
-        else
-        {
-        
-        }
-    } */
 }
