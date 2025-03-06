@@ -40,7 +40,7 @@ public class Character : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("InvisibleWall"))
         {
-            limites.text = "";
+            limites.text = "Llega al aparcamiento, acaba con el líder zombi y escapa.";
         }
     }
     void Update()
