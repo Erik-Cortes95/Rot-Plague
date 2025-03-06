@@ -39,7 +39,12 @@ public class Pistol : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.parent.position, transform.parent.forward, out hit) && !hit.collider.CompareTag("Escenario"))
         {
-            Destroy(hit.transform.gameObject, 0.5f);
+            ZombieHealth zombieHealth = hit.collider.GetComponent<ZombieHealth>();
+            if (zombieHealth != null)
+            {
+                zombieHealth.RecibirDaño(damage);
+            }
+
             Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
 
